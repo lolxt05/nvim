@@ -31,8 +31,7 @@ install_zig() {
     git clone git@github.com:ziglang/zig-bootstrap.git ~/.config/nvim/
     
     echo "Starting build process..."
-    ~/.config/nvim/zig-bootstrap/build "$system_info" "$cpu_arch" &
-    pid1=$!
+    ~/.config/nvim/zig-bootstrap/build "$system_info" "$cpu_arch"
 }
 
 # Function to clone and build Ghostty
