@@ -11,7 +11,6 @@ install_dependencies() {
         libadwaita-1-dev \
         git \
         blueprint-compiler \
-        zig \
         ninja-build \
         lua5.3 \
         perl \
@@ -20,6 +19,19 @@ install_dependencies() {
         luarocks \
         ripgrep \
         build-essential
+}
+
+install_zig() {
+    echo "Installing system dependencies..."
+    sudo apt-get update && sudo apt-get install -y build-essential cmake ninja-build python3 python3-pip git
+    
+    echo "System information:"
+    echo "$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')-$(ldd --version | head -n 1 | awk '{print $1}' | tr '[:upper:]' '[:lower:]') $(lscpu | grep "Model name" | cut -d ':' -f 2 | xargs)"
+    
+    read -p "Enter the CPU architecture (e.g., icelake, skylake): " cpu_arch
+    
+    echo "Starting build process..."
+   ~/.config/nvim/zig-bootstrap/build "$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')-$(ldd --version | head -n 1 | awk '{print $1}' | tr '[:upper:]' '[:lower:]')" "$cpu_arch"
 }
 
 # Function to clone and build Ghostty
@@ -71,13 +83,16 @@ update_bashrc() {
 
 # Main execution
 main() {
+    
+    sudo apt install curl git -y
+
+    install_zig &
+    pid1=$!
+
     # Install dependencies first
     install_dependencies
 
     # Start asynchronous builds
-    build_ghostty &
-    pid1=$!
-    
     build_lua_ls &
     pid2=$!
     
@@ -85,11 +100,14 @@ main() {
     pid3=$!
 
     # Wait for background processes
-    wait $pid1 $pid2 $pid3
+    wait $pid2 $pid3
 
     # Sequential steps
     clean_neovim
     install_neovim
+    
+    wait $pid1
+    build_ghostty
 
     # Final configuration
     update_bashrc
