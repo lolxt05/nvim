@@ -22,7 +22,7 @@ install_dependencies() {
     cmake \
     python3 \
     python3-pip \
-    jq \
+    jq
 }
 
 rust_update_or_install() {
