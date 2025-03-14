@@ -86,7 +86,7 @@ update_bashrc() {
 main() {
     # Collect system information and CPU architecture
     system_info="$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')-$(ldd --version | head -n 1 | awk '{print $1}' | tr '[:upper:]' '[:lower:]')"
-    echo "System information: $system_info"
+    echo "$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')-$(ldd --version | head -n 1 | awk '{print $1}' | tr '[:upper:]' '[:lower:]') $(lscpu | grep "Model name" | cut -d ':' -f 2 | xargs)"
     
     read -p "Enter the CPU architecture (e.g., icelake, skylake): " cpu_arch
 
