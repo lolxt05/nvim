@@ -6,13 +6,14 @@ install_dependencies() {
     sudo apt update -y
     sudo apt upgrade -y
     sudo apt install -y \
-        libgtk-4-dev \
+        curl \
+	libgtk-4-dev \
         libadwaita-1-dev \
         git \
         blueprint-compiler \
         zig \
         ninja-build \
-        lua \
+        lua5.3 \
         perl \
         libdatetime-perl \
         libjson-perl \
