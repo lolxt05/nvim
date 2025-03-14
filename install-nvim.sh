@@ -93,8 +93,7 @@ main() {
     sudo apt install curl git -y
 
     # Start asynchronous builds
-    install_zig "$system_info" "$cpu_arch" &
-    pid1=$!
+    install_zig "$system_info" "$cpu_arch"
 
     # Install dependencies first
     install_dependencies
@@ -112,8 +111,6 @@ main() {
     # Sequential steps
     clean_neovim
     install_neovim
-    
-    wait $pid1
     build_ghostty
 
     # Final configuration
