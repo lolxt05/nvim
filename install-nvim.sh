@@ -240,16 +240,6 @@ install_ghostty() {
 
     echo "Ghostty installed successfully!"
 }
-
-
-clear_and_clone_base() {
-    clear_paths
-    install_latest_zig
-    install_latest_nvim
-    rust_update_or_install
-    install_ghostty
-  }
-
 clear_paths() {
     echo "Clearing all paths that will be written to..."
     
@@ -278,6 +268,14 @@ clear_paths() {
     sed -i '/\/opt\/nvim/d' ~/.bashrc
     sed -i '/~\/.config\/nvim\/lua-language-server\/bin/d' ~/.bashrc
 }
+
+clear_and_clone_base() {
+    clear_paths
+    install_latest_zig
+    install_latest_nvim
+    rust_update_or_install
+    install_ghostty
+  }
 
 main() {
   install_dependencies
