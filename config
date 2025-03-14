@@ -114,3 +114,4 @@ copy-on-select = clipboard
 clipboard-trim-trailing-spaces = true
 clipboard-paste-bracketed-safe = true
 clipboard-paste-protection = false
+command = TERM=xterm-256color /usr/bin/bash
