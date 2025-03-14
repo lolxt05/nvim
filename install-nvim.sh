@@ -7,7 +7,7 @@ install_dependencies() {
     sudo apt upgrade -y
     sudo apt install -y \
         curl \
-	      libgtk-4-dev \
+        libgtk-4-dev \
         libadwaita-1-dev \
         git \
         blueprint-compiler \
@@ -19,20 +19,20 @@ install_dependencies() {
         luarocks \
         ripgrep \
         build-essential \
-        btop \
+        btop
 }
 
 install_zig() {
+    local system_info=$1
+    local cpu_arch=$2
+
     echo "Installing system dependencies..."
     sudo apt-get update && sudo apt-get install -y build-essential cmake ninja-build python3 python3-pip git
     git clone git@github.com:ziglang/zig-bootstrap.git ~/.config/nvim/
-    echo "System information:"
-    echo "$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')-$(ldd --version | head -n 1 | awk '{print $1}' | tr '[:upper:]' '[:lower:]') $(lscpu | grep "Model name" | cut -d ':' -f 2 | xargs)"
-    
-    read -p "Enter the CPU architecture (e.g., icelake, skylake): " cpu_arch
     
     echo "Starting build process..."
-   ~/.config/nvim/zig-bootstrap/build "$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')-$(ldd --version | head -n 1 | awk '{print $1}' | tr '[:upper:]' '[:lower:]')" "$cpu_arch"
+    ~/.config/nvim/zig-bootstrap/build "$system_info" "$cpu_arch" &
+    pid1=$!
 }
 
 # Function to clone and build Ghostty
@@ -84,10 +84,16 @@ update_bashrc() {
 
 # Main execution
 main() {
+    # Collect system information and CPU architecture
+    system_info="$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')-$(ldd --version | head -n 1 | awk '{print $1}' | tr '[:upper:]' '[:lower:]')"
+    echo "System information: $system_info"
     
+    read -p "Enter the CPU architecture (e.g., icelake, skylake): " cpu_arch
+
     sudo apt install curl git -y
 
-    install_zig &
+    # Start asynchronous builds
+    install_zig "$system_info" "$cpu_arch" &
     pid1=$!
 
     # Install dependencies first
