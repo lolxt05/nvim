@@ -132,3 +132,9 @@ case ":$PATH:" in
 esac
 
 # <<< juliaup initialize <<<
+
+
+# custom settings
+
+#	exports like ENVS so PATH usw
+export TERM=xterm-ghostty
