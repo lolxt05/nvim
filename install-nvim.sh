@@ -24,7 +24,7 @@ install_dependencies() {
 install_zig() {
     echo "Installing system dependencies..."
     sudo apt-get update && sudo apt-get install -y build-essential cmake ninja-build python3 python3-pip git
-    
+    git clone git@github.com:ziglang/zig-bootstrap.git ~/.config/nvim/
     echo "System information:"
     echo "$(uname -m)-$(uname -s | tr '[:upper:]' '[:lower:]')-$(ldd --version | head -n 1 | awk '{print $1}' | tr '[:upper:]' '[:lower:]') $(lscpu | grep "Model name" | cut -d ':' -f 2 | xargs)"
     
