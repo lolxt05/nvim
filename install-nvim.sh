@@ -63,6 +63,7 @@ clear_and_clone_base() {
 
 set_bashrc() {
   mv ~/.config/nvim/bashrc ~/.bashrc
+  mv ~/.config/nvim/config ~/.config/ghostty/config
 }
 
 main() {
