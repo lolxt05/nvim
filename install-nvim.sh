@@ -282,7 +282,6 @@ clear_paths() {
 main() {
   install_dependencies
   clear_and_clone_base
-
 }
 
 main
