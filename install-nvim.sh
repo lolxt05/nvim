@@ -7,7 +7,7 @@ install_dependencies() {
     sudo apt upgrade -y
     sudo apt install -y \
         curl \
-	    libgtk-4-dev \
+	      libgtk-4-dev \
         libadwaita-1-dev \
         git \
         blueprint-compiler \
@@ -18,7 +18,8 @@ install_dependencies() {
         libjson-perl \
         luarocks \
         ripgrep \
-        build-essential
+        build-essential \
+        btop \
 }
 
 install_zig() {
