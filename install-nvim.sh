@@ -39,7 +39,7 @@ install_ghostty() {
   cd ~/.config/ghostty/
   ghostty +show-config --default --docs
   rm ../ghostty/config -rf
-  cp ~/.config/nvim/config ../ghostty/
+  cp ~/.config/nvim/config ~/.config/ghostty/
 }
 
 clear_paths() {
@@ -62,8 +62,8 @@ clear_and_clone_base() {
 }
 
 set_bashrc() {
-  mv ~/.config/nvim/bashrc ~/.bashrc
-  mv ~/.config/nvim/config ~/.config/ghostty/config
+  cp ~/.config/nvim/bashrc ~/.bashrc
+  cp ~/.config/nvim/config ~/.config/ghostty/config
 }
 
 main() {
