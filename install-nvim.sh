@@ -23,7 +23,8 @@ install_dependencies() {
   python3-pip \
   jq \
   fd-find \
-  sshpass
+  sshpass \
+  btop
 }
 
 rust_update_or_install() {
