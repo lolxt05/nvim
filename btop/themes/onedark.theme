@@ -1,41 +1,41 @@
-# Theme: OneDark
-# By: Vitor Melo
+# Theme: Custom
+# By: Your Name
 
 # Main bg
 theme[main_bg]="#282c34"
 
 # Main text color
-theme[main_fg]="#abb2bf"
+theme[main_fg]="#dcdfe4"
 
 # Title color for boxes
-theme[title]="#abb2bf"
+theme[title]="#e06c75"
 
 # Highlight color for keyboard shortcuts
 theme[hi_fg]="#61afef"
 
 # Background color of selected item in processes box
-theme[selected_bg]="#2c313c"
+theme[selected_bg]="#474e5d"
 
 # Foreground color of selected item in processes box
-theme[selected_fg]="#abb2bf"
+theme[selected_fg]="#dcdfe4"
 
 # Color of inactive/disabled text
 theme[inactive_fg]="#5c6370"
 
 # Misc colors for processes box including mini cpu graphs, details memory graph and details status text
-theme[proc_misc]="#61afef"
+theme[proc_misc]="#56b6c2"
 
 # Cpu box outline color
-theme[cpu_box]="#5c6370"
+theme[cpu_box]="#61afef"
 
 # Memory/disks box outline color
-theme[mem_box]="#5c6370"
+theme[mem_box]="#98c379"
 
 # Net up/down box outline color
-theme[net_box]="#5c6370"
+theme[net_box]="#56b6c2"
 
 # Processes box outline color
-theme[proc_box]="#5c6370"
+theme[proc_box]="#c678dd"
 
 # Box divider line and small boxes line color
 theme[div_line]="#5c6370"
