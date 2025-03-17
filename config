@@ -52,7 +52,7 @@
 font-family = JetBrains Mono Bold Nerd Font Complete Mono
 #font-family = Iosevka Nerd Font
 # font-family = SFMono Nerd Font 
-font-size = 20
+font-size = 10
 theme = OneHalfDark
 cursor-style = underline
 cursor-style-blink = false
@@ -60,15 +60,12 @@ mouse-hide-while-typing = true
 
 adjust-cell-height = 35%
 background-opacity = 0.96
-background-blur = true
-maximize = true
 title = "idk man"
 
 mouse-scroll-multiplier = 2
 
 window-padding-balance = true 
 window-save-state = always
-window-decoration = none
 window-vsync = true
 # foreground = d4be98
 
