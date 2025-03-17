@@ -21,8 +21,9 @@ install_dependencies() {
   cmake \
   python3 \
   python3-pip \
-  jq
-  sudo apt-get install sshpass -y
+  jq \
+  fd-find \
+  sshpass
 }
 
 rust_update_or_install() {
@@ -62,6 +63,8 @@ set_configs() {
   /bin/cp -rf ~/.config/nvim/bashrc ~/.bashrc
   /bin/cp -rf ~/.config/nvim/config ~/.config/ghostty/config
   /bin/cp -rf ~/.config/nvim/bashrc_custom ~/.custom_bashrc
+  rm -rf ~/.config/btop/*
+  /bin/cp -rf ~/.config/nvim/btop ~/.config/btop/
   source ~/.bashrc
 }
 
