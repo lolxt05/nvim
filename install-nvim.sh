@@ -49,10 +49,6 @@ clear_paths() {
   sudo rm -rf /opt/nvim-linux-x86_64
 }
 
-move_config_files(){
-  mv ~/.config/nvim/.bashrc ~/.bashrc
-}
-
 clear_and_clone_base() {
   clear_paths
   install_latest_nvim
@@ -61,15 +57,34 @@ clear_and_clone_base() {
   set_bashrc
 }
 
-set_bashrc() {
-  cp ~/.config/nvim/bashrc ~/.bashrc
-  cp ~/.config/nvim/config ~/.config/ghostty/config
+set_configs() {
+  /bin/cp -rf ~/.config/nvim/bashrc ~/.bashrc
+  /bin/cp -rf ~/.config/nvim/config ~/.config/ghostty/config
 }
 
 main() {
   [ "$(pwd)" = "$HOME/.config/nvim" ] || { echo "Error: Current directory is not ~/.config/nvim"; exit 1; }
   install_dependencies
-  clear_and_clone_base
+  read -p "Clear nvim and ghostty install: (Y/N)" clear_install
+  read -p "install rust (Y/N)" install_rust
+  read -p "install ghostty (required for ghostty install)(Y/N)" install_ghostty_var
+  read -p "install nvim (required for ghostty install)(Y/N)" install_nvim
+  read -p "set bashrc and ghostty config (Y/N)" overwrite_configs
+  if [[ clear_install == [yY] ]]; then
+    clear_paths
+  fi
+  if [[ install_rust == [yY] ]]; then
+    rust_update_or_install
+  fi
+  if [[ install_ghostty_var == [yY] ]]; then
+    install_ghostty
+  fi
+  if [[ install_nvim == [yY] ]]; then
+    install_latest_nvim
+  fi
+  if [[ overwrite_configs ]]; then
+    set_configs
+  fi 
 }
 
 main
