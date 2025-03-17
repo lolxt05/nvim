@@ -60,6 +60,7 @@ clear_and_clone_base() {
 set_configs() {
   /bin/cp -rf ~/.config/nvim/bashrc ~/.bashrc
   /bin/cp -rf ~/.config/nvim/config ~/.config/ghostty/config
+  /bin/cp -rf ~/.config/nvim/bashrc_custom ~/.custom_bashrc
 }
 
 main() {
