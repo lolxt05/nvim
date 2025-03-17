@@ -132,19 +132,8 @@ case ":$PATH:" in
 esac
 
 # <<< juliaup initialize <<<
-shutdown() {
-  /bin/cp -rf /home/wstadmin/.bashrc /home/wstadmin/.config/nvim/bashrc
-  /bin/cp -rf /home/wstadmin/.config/ghostty/config /home/wtsadmin/.config/nvim/config
-  cd /home/wstadmin/.config/nvim/
-  git pull
-  git add .
-  git commit -m"auto shutdown and saved configs"
-  git push
-}
 
 # custom settings
-alias :q='exit'
-alias nano='nvim'
-alias shutdown=shutdown
+source .custom_bashrc
 #	exports like ENVS so PATH usw
 export TERM=xterm-ghostty
