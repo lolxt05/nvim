@@ -22,6 +22,7 @@ install_dependencies() {
   python3 \
   python3-pip \
   jq
+  sudo apt-get install sshpass -y
 }
 
 rust_update_or_install() {
