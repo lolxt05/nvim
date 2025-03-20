@@ -137,3 +137,5 @@ esac
 source .custom_bashrc
 #	exports like ENVS so PATH usw
 export TERM=xterm-ghostty
+export PATH="$PATH:/opt/mssql-tools18/bin"
+export PATH="$PATH:/opt/mssql-tools18/bin"

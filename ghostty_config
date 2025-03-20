@@ -53,14 +53,14 @@ font-family = JetBrains Mono Bold Nerd Font Complete Mono
 #font-family = Iosevka Nerd Font
 # font-family = SFMono Nerd Font 
 font-size = 10
-theme = OneHalfDark
+theme = custom
 cursor-style = underline
 cursor-style-blink = false
 mouse-hide-while-typing = true
 
 adjust-cell-height = 35%
 background-opacity = 0.96
-title = "idk man"
+title = "ghostty"
 
 mouse-scroll-multiplier = 2
 

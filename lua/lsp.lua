@@ -93,13 +93,14 @@ require('mason-lspconfig').setup()
 local servers = {
   clangd = {},
   bashls = {},
-  -- gopls = {},
-  pyright = {},
-  -- rust_analyzer = {},
+  gopls = {},
+  pyright = { filetype = { 'python' }},
+  rust_analyzer = { filetype = {'rust'} },
   ts_ls = {},
   eslint = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs'} },
+  html = { filetypes = { 'html', 'twig', 'hbs'} },
   texlab = {},
+  ltex = { filetypes = { 'markdown', 'md', 'mdown', 'mkd', 'mkdn', 'mdwn', } },
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -154,7 +155,7 @@ servers = {
     }
   },
   gdscript = {},
-  ltex_plus = {
+  ltex = {
     filetypes = {
       'markdown',
       'latex',

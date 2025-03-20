@@ -65,7 +65,7 @@ set_configs() {
   /bin/cp -rf ~/.config/nvim/config ~/.config/ghostty/config
   /bin/cp -rf ~/.config/nvim/bashrc_custom ~/.custom_bashrc
   rm -rf ~/.config/btop/*
-  /bin/cp -rf ~/.config/nvim/btop ~/.config/btop/
+  /bin/cp -rf ~/.config/nvim/btop ~/.config/btop
   source ~/.bashrc
 }
 
