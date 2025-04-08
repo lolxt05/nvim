@@ -94,7 +94,7 @@ local servers = {
   clangd = {},
   bashls = {},
   gopls = {},
-  pyright = { filetype = { 'python' }},
+  pyright = { filetype = { 'python' } },
   rust_analyzer = { filetype = {'rust'} },
   ts_ls = {},
   eslint = {},
@@ -106,7 +106,7 @@ local servers = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
       -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-      -- diagnostics = { disable = { 'missing-fields' } },
+      diagnostics = { disable = { 'missing-fields' } },
     },
   },
 }

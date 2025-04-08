@@ -68,6 +68,6 @@ keymap('n', 'Y', 'yg_', { noremap = true, silent = true, desc = '[Y]ank the line
 keymap('v', '>', '>gv', { noremap = true, silent = true })
 keymap('v', '<', '<gv', { noremap = true, silent = true })
 
-keymap('n', '<leader>et', ':NvimTreeToggle<CR>', { noremap = true, silent = true, desc = "Toggle Nvim tree" })
-keymap('n', '<leader>ec', ':NvimTreeCollapseKeepBuffers<CR>', { noremap = true, silent = true, desc = "Nvim tree collapes on all folder but only keep folder open that have buffers opened in them" })
-keymap('n', '<leader>er', ':NvimTreeRefresh<CR>', { noremap = true, silent = true, desc = "Refresh the nvim tree" })
+keymap('n', '<leader>wt', ':NvimTreeToggle<CR>', { noremap = true, silent = true, desc = "Toggle Nvim tree" })
+keymap('n', '<leader>wc', ':NvimTreeCollapseKeepBuffers<CR>', { noremap = true, silent = true, desc = "Nvim tree collapes on all folder but only keep folder open that have buffers opened in them" })
+keymap('n', '<leader>wl', ':NvimTreeRefresh<CR>', { noremap = true, silent = true, desc = "Refresh the nvim tree" })

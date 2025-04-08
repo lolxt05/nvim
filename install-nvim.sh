@@ -52,17 +52,10 @@ clear_paths() {
   sudo rm -rf /opt/nvim-linux-x86_64
 }
 
-clear_and_clone_base() {
-  clear_paths
-  install_latest_nvim
-  rust_update_or_install
-  install_ghostty
-  set_bashrc
-}
 
 set_configs() {
   /bin/cp -rf ~/.config/nvim/bashrc ~/.bashrc
-  /bin/cp -rf ~/.config/nvim/config ~/.config/ghostty/config
+  /bin/cp -rf ~/.config/nvim/ghostty_config ~/.config/ghostty/config
   /bin/cp -rf ~/.config/nvim/bashrc_custom ~/.custom_bashrc
   rm -rf ~/.config/btop/*
   /bin/cp -rf ~/.config/nvim/btop ~/.config/btop
@@ -77,21 +70,21 @@ main() {
   read -p "install ghostty (required for ghostty install)(Y/N)" install_ghostty_var
   read -p "install nvim (required for ghostty install)(Y/N)" install_nvim
   read -p "set bashrc and ghostty config (Y/N)" overwrite_configs
-  if [[ clear_install == [yY] ]]; then
+  #if [[ clear_install == [yY] ]]; then
     clear_paths
-  fi
-  if [[ install_rust == [yY] ]]; then
+  #fi
+  #if [[ install_rust == [yY] ]]; then
     rust_update_or_install
-  fi
-  if [[ install_ghostty_var == [yY] ]]; then
+  #fi
+  #if [[ install_ghostty_var == [yY] ]]; then
     install_ghostty
-  fi
-  if [[ install_nvim == [yY] ]]; then
+  #fi
+  #if [[ install_nvim == [yY] ]]; then
     install_latest_nvim
-  fi
-  if [[ overwrite_configs ]]; then
+  #fi
+  #if [[ overwrite_configs ]]; then
     set_configs
-  fi 
+  #fi 
 }
 
 main

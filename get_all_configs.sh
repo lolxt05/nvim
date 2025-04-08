@@ -1,10 +1,5 @@
-rm -f ~/.config/nvim/bashrc
-rm -f ~/.config/nvim/ghostty_config
-rm -f ~/.config/nvim/ghostty_theme
-rm -f ~/.config/nvim/bashrc_custom
-rm -rf ~/.config/nvim/btop
-cp ~/.bashrc ~/.config/nvim/bashrc
-cp ~/.custom_bashrc ~/.config/nvim/bashrc_custom
-cp ~/.config/ghostty/config ~/.config/nvim/ghostty_config
-cp ~/ghostty/zig-out/share/ghostty/themes/custom ~/.config/nvim/ghostty_theme
-cp -r ~/.config/btop ~/.config/nvim/btop
+cp -f ~/.bashrc ~/.config/nvim/configs/bashrc
+cp -fr ~/.custom_bashrc ~/.config/nvim/configs/custom_bashrc
+cp -fr ~/.config/ghostty ~/.config/nvim/configs/ghostty
+cp -fr ~/.config/btop ~/.config/nvim/configs/btop
+

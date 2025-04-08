@@ -1,0 +1,81 @@
+#!/bin/bash
+
+function __setprompt {
+    local LAST_COMMAND=$?  # Must come first!
+
+    # Define 24-bit color escape sequences using your palette
+    local FG_PRIMARY="\[\e[38;2;220;223;228m\]"    # palette 7 / bright white (primary text)
+    local FG_DISABLED="\[\e[38;2;92;99;112m\]"       # palette 1 / bright black (disabled text)
+    local FG_HIGHLIGHT="\[\e[38;2;71;78;93m\]"       # palette 2 / bright green (highlight background)
+    local ACCENT_LIGHTBLUE="\[\e[38;2;86;182;194m\]"  # palette 3 / light blue accent
+    local PRIMARY_BLUE="\[\e[38;2;97;175;239m\]"      # palette 4 / primary blue
+    local PRIMARY_PURPLE="\[\e[38;2;198;120;221m\]"   # palette 5 / primary purple & bright red/magenta
+    local LIGHTEST_BLUE="\[\e[38;2;112;184;194m\]"     # palette 6 / lightest blue accent
+    local NOCOLOR="\[\e[0m\]"
+
+    # Start prompt with error info if last command failed
+    if [[ $LAST_COMMAND != 0 ]]; then
+        PS1="${FG_DISABLED}${PRIMARY_PURPLE}ERROR${FG_DISABLED} ${PRIMARY_PURPLE}Exit Code ${FG_PRIMARY}${LAST_COMMAND}${FG_DISABLED}"
+        case $LAST_COMMAND in
+            1) PS1+=" General error";;
+            2) PS1+=" Missing keyword, command, or permission problem";;
+            126) PS1+=" Permission problem or command is not executable";;
+            127) PS1+=" Command not found";;
+            128) PS1+=" Invalid argument to exit";;
+            129) PS1+=" Fatal error signal 1";;
+            130) PS1+=" Script terminated by Control-C";;
+            131) PS1+=" Fatal error signal 3";;
+            132) PS1+=" Fatal error signal 4";;
+            133) PS1+=" Fatal error signal 5";;
+            134) PS1+=" Fatal error signal 6";;
+            135) PS1+=" Fatal error signal 7";;
+            136) PS1+=" Fatal error signal 8";;
+            137) PS1+=" Fatal error signal 9";;
+            *) PS1+=" Unknown error code";;
+        esac
+        PS1+="${NOCOLOR}\n"
+    else
+        PS1=""
+    fi
+
+    # Date and time segment
+    PS1+="${FG_DISABLED}${ACCENT_LIGHTBLUE}\$(date +%a) $(date +%b-%-m) ${PRIMARY_BLUE}\$(date +'%-I:%M:%S%P')${FG_DISABLED}"
+
+    # CPU usage (assuming function 'cpu' is defined)
+    PS1+=" ${PRIMARY_PURPLE}CPU \$(cpu)%"
+
+    # Number of background jobs
+    PS1+=" ${FG_DISABLED}:${PRIMARY_PURPLE}\j"
+
+    # Network connections count
+    PS1+=" ${FG_DISABLED}:${PRIMARY_PURPLE}Net \$(awk 'END {print NR}' /proc/net/tcp)${FG_DISABLED}"
+
+    # User and host segment
+    local SSH_IP=$(echo $SSH_CLIENT | awk '{ print $1 }')
+    local SSH2_IP=$(echo $SSH2_CLIENT | awk '{ print $1 }')
+    PS1+=" ${FG_PRIMARY}\u"
+    [[ $SSH_IP || $SSH2_IP ]] && PS1+="@\h"
+
+    # Current working directory
+    PS1+=" ${PRIMARY_BLUE}\w${FG_DISABLED}"
+
+    # Directory file info: total size and number of files
+    PS1+=" ${LIGHTEST_BLUE}\$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')"
+    PS1+=" ${LIGHTEST_BLUE}\$(/bin/ls -A -1 | /usr/bin/wc -l)${FG_DISABLED}\n"
+
+    # Prompt symbol
+    if [[ $EUID -ne 0 ]]; then
+        PS1+="${PRIMARY_BLUE}>${NOCOLOR} "
+    else
+        PS1+="${PRIMARY_PURPLE}>${NOCOLOR} "
+    fi
+
+    # Set secondary prompt variables
+    PS2="${FG_DISABLED}>${NOCOLOR} "
+    PS3='Please enter a number from above list: '
+    PS4="${FG_DISABLED}+${NOCOLOR} "
+}
+PROMPT_COMMAND=__setprompt
+
+clear
+fortune | boxes -d tux | lolcat -a -d 1

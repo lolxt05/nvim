@@ -1,0 +1,97 @@
+#!/bin/bash
+# ==== System Utilities ====
+alias apt-get='sudo apt-get'
+alias freshclam='sudo freshclam'
+alias rebootsafe='sudo shutdown -r now'
+alias rebootforce='sudo shutdown -r -n now'
+alias mountedinfo='df -hT'
+alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
+alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
+
+# ==== Directory Navigation ====
+alias home='cd ~'
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias bd='cd "$OLDPWD"'
+alias web='cd /var/www/html'
+
+# ==== Directory Listing (ls) ====
+alias ls='ls -aFh --color=always'      # Colorized with indicators and human-readable sizes
+alias ll='ls -Fls'                     # Detailed list view
+alias la='ls -Alh'                     # Almost all files (excludes . and ..)
+alias lx='ls -lXBh'                    # Sorted by extension
+alias lk='ls -lSrh'                    # Sorted by size (largest last)
+alias lc='ls -lcrh'                    # Sorted by change time (recent last)
+alias lu='ls -lurh'                    # Sorted by access time (recent last)
+alias lr='ls -lRh'                     # Recursive list
+alias lt='ls -ltrh'                    # Sorted by modification time (recent last)
+alias lm='ls -alh |more'               # Paged output
+alias lw='ls -xAh'                     # Wide output (no sorting)
+alias lf="ls -l | egrep -v '^d'"       # List files only (exclude directories)
+alias ldir="ls -l | egrep '^d'"        # List directories only
+alias labc='ls -lap'                   # Alphabetical sort
+alias tree='tree -CAhF --dirsfirst'    # Visual directory tree
+alias treed='tree -CAFd'               # Visual directory tree (directories only)
+
+# ==== File Operations ====
+alias cp='cp -i'                       # Interactive copy
+alias mv='mv -i'                       # Interactive move
+alias rm='rm -iv'                      # Interactive remove with confirmation
+alias mkdir='mkdir -p'                 # Create parent directories as needed
+alias rmd='/bin/rm  --recursive --force --verbose ' # Forceful recursive delete
+alias mktar='tar -cvf'                 # Create tar archive
+alias mkbz2='tar -cvjf'                # Create bzip2-compressed archive
+alias mkgz='tar -cvzf'                 # Create gzip-compressed archive
+alias untar='tar -xvf'                 # Extract tar archive
+alias unbz2='tar -xvjf'                # Extract bzip2 archive
+alias ungz='tar -xvzf'                 # Extract gzip archive
+alias diskspace="du -S | sort -n -r |more" # Disk usage sorted by size
+alias folders='du -h --max-depth=1'    # Disk usage per directory (1 level)
+alias folderssort='find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn' # Sorted directory sizes
+
+# ==== Permissions ====
+alias mx='chmod a+x'                   # Make file executable
+alias 000='chmod -R 000'               # Remove all permissions recursively
+alias 644='chmod -R 644'               # Common file permissions
+alias 666='chmod -R 666'               # Read/write for all
+alias 755='chmod -R 755'               # Common directory permissions
+alias 777='chmod -R 777'               # Full permissions for all
+
+# ==== Process Management ====
+alias ps='ps auxf'                     # Detailed process list
+alias p="ps aux | grep "               # Search processes by name
+
+# ==== Network ====
+alias app04='ssh vie-app04 -l root'    # SSH to vie-app04 as root
+alias wy='ssh root@194.164.196.102'    # SSH to specific IP as root
+alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'" # View IPs connected to port 80
+alias openports='netstat -nape --inet' # List open ports
+alias ping='ping -c 10'                # Ping with 10 packets
+alias whatismyip="curl -4 icanhazip.com" # Get public IPv4 address
+
+# ==== Editors ====
+alias nano='nvim'                      # Use neovim instead of nano
+alias vi='vim'                         # Use vim
+alias svi='sudo vi'                    # Edit files with sudo
+alias vis='vim "+set si"'              # Vim with smartindent
+alias eim='nvim ~/.config/nvim'        # Edit neovim config
+alias bashrc='nvim /home/wstadmin/.custom_bashrc && source /home/wstadmin/.custom_bashrc' # Edit and reload bashrc
+
+# ==== History & Searching ====
+alias h="history | grep "              # Search command history
+alias f="find . | grep "               # Find files by name
+alias checkcommand="type -t"           # Check command type (alias/function/etc)
+
+# ==== Miscellaneous ====
+alias :Q='exit'                        # Vim-style exit
+alias :q='exit'                        # Vim-style exit
+alias cls='clear'                      # Clear screen
+alias da='date "+%Y-%m-%d %A %T %Z"'   # Formatted date/time
+alias less='less -R'                   # Raw control characters (for colors)
+alias multitail='multitail --no-repeat -c' # Multi-tail with color
+alias lock='gnome-screensaver-command -l' # Lock screen
+alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f" # Tail all log files
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' # Notification after command
