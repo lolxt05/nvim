@@ -1,31 +1,8 @@
-#!/bin/bash
-
 function __setprompt {
-    local LAST_COMMAND=$?  # Must come first!
+    local LAST_COMMAND=$?
 
-    # Define colors using system's tput if available, otherwise use ANSI codes
-    if command -v tput >/dev/null 2>&1; then
-        FG_DISABLED=$(tput dim)
-        FG_PRIMARY=$(tput setaf 7)  # White
-        PRIMARY_PURPLE=$(tput setaf 5)
-        PRIMARY_BLUE=$(tput setaf 4)
-        ACCENT_LIGHTBLUE=$(tput setaf 6)
-        LIGHTEST_BLUE=$(tput setaf 12 2>/dev/null || tput setaf 6)  # Fallback to cyan
-        NOCOLOR=$(tput sgr0)
-    else
-        # Fallback to ANSI color codes
-        FG_DISABLED='\e[2m'
-        FG_PRIMARY='\e[97m'
-        PRIMARY_PURPLE='\e[35m'
-        PRIMARY_BLUE='\e[34m'
-        ACCENT_LIGHTBLUE='\e[36m'
-        LIGHTEST_BLUE='\e[96m'
-        NOCOLOR='\e[0m'
-    fi
-
-    # Start prompt with error info if last command failed
     if [[ $LAST_COMMAND != 0 ]]; then
-        PS1="${FG_DISABLED}${PRIMARY_PURPLE}ERROR${FG_DISABLED} ${PRIMARY_PURPLE}Exit Code ${FG_PRIMARY}${LAST_COMMAND}${FG_DISABLED}"
+        PS1="\[\e[2m\e[91m\]ERROR \[\e[91m\]Exit Code \[\e[97m\]${LAST_COMMAND}\[\e[2m\]"
         case $LAST_COMMAND in
             1) PS1+=" General error";;
             2) PS1+=" Missing keyword, command, or permission problem";;
@@ -43,46 +20,31 @@ function __setprompt {
             137) PS1+=" Fatal error signal 9";;
             *) PS1+=" Unknown error code";;
         esac
-        PS1+="${NOCOLOR}\n"
+        PS1+="\[\e[0m\]\n"
     else
         PS1=""
     fi
 
-    # Date and time segment
-    PS1+="${FG_DISABLED}${ACCENT_LIGHTBLUE}\$(date +%a) $(date +%b-%-m) ${PRIMARY_BLUE}\$(date +'%-I:%M:%S%P')${FG_DISABLED}"
+    PS1+="\[\e[2m\e[96m\]\d \[\e[95;1m\]$(date +%b-%-m) \[\e[94;1m\]$(date +'%-I:%M:%S%P')\[\e[0m\e[2m\]"
+    PS1+=" \[\e[93;1m\]CPU $(cpu)%"
+    PS1+=" \[\e[2m\]:\[\e[92;1m\]\j"
+    PS1+=" \[\e[2m\]:\[\e[95;1m\]Net $(awk 'END {print NR}' /proc/net/tcp)"
+    PS1+=" \[\e[97;1m\]\u"
+    [[ $SSH_CLIENT || $SSH2_CLIENT ]] && PS1+="@\[\e[96;1m\]\h"
+    PS1+=" \[\e[94;1m\]\w\[\e[2m\]"
+    PS1+=" \[\e[38;5;153m\][\[\e[38;5;159m\]$(/bin/ls -lah | grep -m1 total | sed 's/total //')"
+    PS1+=" \[\e[38;5;153m\]|\[\e[38;5;159m\]$(/bin/ls -A -1 | wc -l)\[\e[38;5;153m\]]\[\e[0m\]\[\e[2m\]\n"
 
-    # CPU usage (assuming function 'cpu' is defined)
-    PS1+=" ${PRIMARY_BLUE}CPU \$(cpu)%"
-
-    # Number of background jobs
-    PS1+=" ${FG_DISABLED}:${ACCENT_LIGHTBLUE}\j"
-
-    # Network connections count
-    PS1+=" ${FG_DISABLED}:${PRIMARY_BLUE}Net \$(awk 'END {print NR}' /proc/net/tcp)${FG_DISABLED}"
-
-    # User and host segment
-    local SSH_IP=$(echo $SSH_CLIENT | awk '{ print $1 }')
-    local SSH2_IP=$(echo $SSH2_CLIENT | awk '{ print $1 }')
-    PS1+=" ${FG_PRIMARY}\u"
-    [[ $SSH_IP || $SSH2_IP ]] && PS1+="@\h"
-
-    # Current working directory
-    PS1+=" ${PRIMARY_BLUE}\w${FG_DISABLED}"
-
-    # Directory file info: total size and number of files
-    PS1+=" ${LIGHTEST_BLUE}\$(/bin/ls -lah | /bin/grep -m 1 total | /bin/sed 's/total //')"
-    PS1+=" ${LIGHTEST_BLUE}\$(/bin/ls -A -1 | /usr/bin/wc -l)${FG_DISABLED}\n"
-
-    # Prompt symbol
     if [[ $EUID -ne 0 ]]; then
-        PS1+="${PRIMARY_BLUE}>${NOCOLOR} "
+        PS1+="\[\e[96;1m\]❯\[\e[0m\] "
     else
-        PS1+="${PRIMARY_PURPLE}>${NOCOLOR} "
+        PS1+="\[\e[95;1m\]❯\[\e[0m\] "
     fi
 
-    # Set secondary prompt variables
-    PS2="${FG_DISABLED}>${NOCOLOR} "
+    PS2="\[\e[2m\]❯\[\e[0m\] "
     PS3='Please enter a number from above list: '
-    PS4="${FG_DISABLED}+${NOCOLOR} "
+    PS4="\[\e[2m\]+\[\e[0m\] "
 }
+
 PROMPT_COMMAND=__setprompt
+wal -i ~/.config/wallpaper --backend wal -q

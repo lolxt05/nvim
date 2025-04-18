@@ -79,7 +79,15 @@ alias svi='sudo vi'                    # Edit files with sudo
 alias vis='vim "+set si"'              # Vim with smartindent
 alias eim='nvim ~/.config/nvim'        # Edit neovim config
 alias bashrc='nvim /home/wstadmin/.custom_bashrc && source /home/wstadmin/.custom_bashrc' # Edit and reload bashrc
-
+setup_custom_aliases_for_bashrc_configs() {
+  for file in ~/.config/nvim/configs/custom_bash/*; do
+    if [[ -f "$file" ]]; then  # Only process regular files
+      alias_name=$(basename "$file" | cut -d. -f1)  # Get filename without extension
+      alias "config$alias_name"="nvim \"$file\" && source \"$file\""
+    fi
+  done
+}
+setup_custom_aliases_for_bashrc_configs
 # ==== History & Searching ====
 alias h="history | grep "              # Search command history
 alias f="find . | grep "               # Find files by name
