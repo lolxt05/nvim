@@ -3,15 +3,25 @@
 function __setprompt {
     local LAST_COMMAND=$?  # Must come first!
 
-    # Define 24-bit color escape sequences using your palette
-    local FG_PRIMARY="\[\e[38;2;220;223;228m\]"    # palette 7 / bright white (primary text)
-    local FG_DISABLED="\[\e[38;2;92;99;112m\]"       # palette 1 / bright black (disabled text)
-    local FG_HIGHLIGHT="\[\e[38;2;71;78;93m\]"       # palette 2 / bright green (highlight background)
-    local ACCENT_LIGHTBLUE="\[\e[38;2;86;182;194m\]"  # palette 3 / light blue accent
-    local PRIMARY_BLUE="\[\e[38;2;97;175;239m\]"      # palette 4 / primary blue
-    local PRIMARY_PURPLE="\[\e[38;2;198;120;221m\]"   # palette 5 / primary purple & bright red/magenta
-    local LIGHTEST_BLUE="\[\e[38;2;112;184;194m\]"     # palette 6 / lightest blue accent
-    local NOCOLOR="\[\e[0m\]"
+    # Define colors using system's tput if available, otherwise use ANSI codes
+    if command -v tput >/dev/null 2>&1; then
+        FG_DISABLED=$(tput dim)
+        FG_PRIMARY=$(tput setaf 7)  # White
+        PRIMARY_PURPLE=$(tput setaf 5)
+        PRIMARY_BLUE=$(tput setaf 4)
+        ACCENT_LIGHTBLUE=$(tput setaf 6)
+        LIGHTEST_BLUE=$(tput setaf 12 2>/dev/null || tput setaf 6)  # Fallback to cyan
+        NOCOLOR=$(tput sgr0)
+    else
+        # Fallback to ANSI color codes
+        FG_DISABLED='\e[2m'
+        FG_PRIMARY='\e[97m'
+        PRIMARY_PURPLE='\e[35m'
+        PRIMARY_BLUE='\e[34m'
+        ACCENT_LIGHTBLUE='\e[36m'
+        LIGHTEST_BLUE='\e[96m'
+        NOCOLOR='\e[0m'
+    fi
 
     # Start prompt with error info if last command failed
     if [[ $LAST_COMMAND != 0 ]]; then
@@ -42,13 +52,13 @@ function __setprompt {
     PS1+="${FG_DISABLED}${ACCENT_LIGHTBLUE}\$(date +%a) $(date +%b-%-m) ${PRIMARY_BLUE}\$(date +'%-I:%M:%S%P')${FG_DISABLED}"
 
     # CPU usage (assuming function 'cpu' is defined)
-    PS1+=" ${PRIMARY_PURPLE}CPU \$(cpu)%"
+    PS1+=" ${PRIMARY_BLUE}CPU \$(cpu)%"
 
     # Number of background jobs
-    PS1+=" ${FG_DISABLED}:${PRIMARY_PURPLE}\j"
+    PS1+=" ${FG_DISABLED}:${ACCENT_LIGHTBLUE}\j"
 
     # Network connections count
-    PS1+=" ${FG_DISABLED}:${PRIMARY_PURPLE}Net \$(awk 'END {print NR}' /proc/net/tcp)${FG_DISABLED}"
+    PS1+=" ${FG_DISABLED}:${PRIMARY_BLUE}Net \$(awk 'END {print NR}' /proc/net/tcp)${FG_DISABLED}"
 
     # User and host segment
     local SSH_IP=$(echo $SSH_CLIENT | awk '{ print $1 }')
@@ -76,6 +86,3 @@ function __setprompt {
     PS4="${FG_DISABLED}+${NOCOLOR} "
 }
 PROMPT_COMMAND=__setprompt
-
-clear
-fortune | boxes -d tux | lolcat -a -d 1
