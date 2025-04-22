@@ -20,7 +20,7 @@ alias web='cd /var/www/html'
 
 # ==== Directory Listing (ls) ====
 alias ls='ls -aFh --color=always'      # Colorized with indicators and human-readable sizes
-alias ll='ls -Fls'                     # Detailed list view
+alias ll='ls -Flsa'                     # Detailed list view
 alias la='ls -Alh'                     # Almost all files (excludes . and ..)
 alias lx='ls -lXBh'                    # Sorted by extension
 alias lk='ls -lSrh'                    # Sorted by size (largest last)

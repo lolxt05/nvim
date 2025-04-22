@@ -24,16 +24,13 @@ function __setprompt {
     else
         PS1=""
     fi
-
-    PS1+="\[\e[2m\e[96m\]\d \[\e[95;1m\]$(date +%b-%-m) \[\e[94;1m\]$(date +'%-I:%M:%S%P')\[\e[0m\e[2m\]"
-    PS1+=" \[\e[93;1m\]CPU $(cpu)%"
-    PS1+=" \[\e[2m\]:\[\e[92;1m\]\j"
-    PS1+=" \[\e[2m\]:\[\e[95;1m\]Net $(awk 'END {print NR}' /proc/net/tcp)"
+    PS1+="\[\e[2m\e[96m\]\d \[\e[95;1m\]$(date +'%-I:%M:%S%P')"
+    PS1+=" \[\e[2m\]\[\e[95;1m\]Net:$(awk 'END {print NR}' /proc/net/tcp)"
     PS1+=" \[\e[97;1m\]\u"
     [[ $SSH_CLIENT || $SSH2_CLIENT ]] && PS1+="@\[\e[96;1m\]\h"
     PS1+=" \[\e[94;1m\]\w\[\e[2m\]"
-    PS1+=" \[\e[38;5;153m\][\[\e[38;5;159m\]$(/bin/ls -lah | grep -m1 total | sed 's/total //')"
-    PS1+=" \[\e[38;5;153m\]|\[\e[38;5;159m\]$(/bin/ls -A -1 | wc -l)\[\e[38;5;153m\]]\[\e[0m\]\[\e[2m\]\n"
+    PS1+=" \[\e[38;5;153m\][\e[38;5;159m\]$(/bin/ls -lah | grep -m1 total | sed 's/total //')"
+    PS1+=" \[\e[38;5;153m\]\[\e[38;5;159m\]$(/bin/ls -A -1 | wc -l)\[\e[38;5;153m\]]\[\e[0m\]\[\e[2m\]\n"
 
     if [[ $EUID -ne 0 ]]; then
         PS1+="\[\e[96;1m\]❯\[\e[0m\] "
@@ -47,4 +44,4 @@ function __setprompt {
 }
 
 PROMPT_COMMAND=__setprompt
-wal -i ~/.config/wallpaper --backend wal -q
+wal -i ~/.config/wallpaper.jpg --backend wal -q
