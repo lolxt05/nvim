@@ -1,0 +1,21 @@
+palette = 0=#011121
+palette = 1=#2646C5
+palette = 2=#64CDFA
+palette = 3=#F9184E
+palette = 4=#FC225E
+palette = 5=#011121
+palette = 6=#2646C5
+palette = 7=#64CDFA
+palette = 8=#FC225E
+palette = 9=#F9184E
+palette = 10=#011121
+palette = 11=#2646C5
+palette = 12=#64CDFA
+palette = 13=#F9184E
+palette = 14=#FC225E
+palette = 15=#64CDFA
+background = #011121
+foreground = #64CDFA
+selection-background = #2646C5
+selection-foreground = #64CDFA
+
