@@ -15,4 +15,8 @@ PERL5LIB="/home/wstadmin/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5
 PERL_LOCAL_LIB_ROOT="/home/wstadmin/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
 PERL_MB_OPT="--install_base \"/home/wstadmin/perl5\""; export PERL_MB_OPT;
 PERL_MM_OPT="INSTALL_BASE=/home/wstadmin/perl5"; export PERL_MM_OPT;
-export PATH="$PATH:/opt/mssql-tools18/bin"
+export PATH="$PATH:/opt/mssql-tools19/bin"
+export PATH="$PATH:/codebase/esp/xtensa-lx106-elf/bin"
+export IDF_PATH=/codebase/esp/ESP8266_RTOS_SDK
+. /codebase/esp/ESP8266_RTOS_SDK/export.sh
+

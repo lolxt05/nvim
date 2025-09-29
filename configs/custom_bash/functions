@@ -81,3 +81,7 @@ up ()
 	fi
 	cd $d
 }
+obsidian ()
+{
+	/bin/obsidian --no-sandbox &>/dev/null &
+}

@@ -44,4 +44,4 @@ function __setprompt {
 }
 
 PROMPT_COMMAND=__setprompt
-wal -i ~/.config/wallpaper.jpg --backend wal -q
+wal -i ~/.config/wallpaper.jpg

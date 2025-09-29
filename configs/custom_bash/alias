@@ -103,3 +103,6 @@ alias multitail='multitail --no-repeat -c' # Multi-tail with color
 alias lock='gnome-screensaver-command -l' # Lock screen
 alias logs="sudo find /var/log -type f -exec file {} \; | grep 'text' | cut -d' ' -f1 | sed -e's/:$//g' | grep -v '[0-9]$' | xargs tail -f" # Tail all log files
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"' # Notification after command
+alias get_idf='. /codebase/esp/esp-idf/export.sh'
+alias python=python3
+
